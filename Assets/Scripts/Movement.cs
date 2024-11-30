@@ -4,64 +4,30 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private Rigidbody rb;
-
     [Header("Movement")]
+    [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float speed;
-    [SerializeField] private float jumpForce;
-    [SerializeField] private float groundDistance;
-    private bool isGrounded;
 
     [Header("Mouse Look")]
-    [SerializeField] private Transform xRotation;
-    [SerializeField] private Transform yRotation;
-    private float xDegrees;
-    private float yDegrees;
+    [SerializeField] private Transform rotationTransform;
 
-    void FixedUpdate()
+    public void Move(float x, float y)
     {
-        isGrounded = IsGrounded();
+        Vector3 up = rb.transform.up * y * speed;
+        Vector3 right = rb.transform.right * x * speed;
+        rb.velocity = new Vector3(up.x + right.x, up.y + right.y);
     }
 
-    public void Move(float x, float z)
+    public void LookDirection(Vector2 direction)
     {
-        if (!isGrounded) return;
-
-        Vector3 forward = transform.forward * z * speed;
-        Vector3 right = transform.right * x * speed;
-        rb.velocity = new Vector3(forward.x + right.x, rb.velocity.y, forward.z + right.z);
+        Vector3 lookDirection = new Vector3(direction.x, direction.y, 0);
+        float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+        rotationTransform.rotation = Quaternion.Euler(0, 0, angle - 90);
     }
 
-    public void Jump()
+    public void LookAt(Vector2 target)
     {
-        if (!isGrounded) return;
-
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-    }
-
-    private bool IsGrounded()
-    {
-        return Physics.Raycast(transform.position, Vector3.down, groundDistance);
-    }
-
-    public void Rotate(float x, float y)
-    {
-        xDegrees -= x;
-        xDegrees = Mathf.Clamp(xDegrees, -90, 90);
-        xRotation.localRotation = Quaternion.Euler(xDegrees, 0, 0);
-        yDegrees += y;
-        yRotation.localRotation = Quaternion.Euler(0, yDegrees, 0);
-    }
-
-    public void LookAt(Vector3 target)
-    {
-        Vector3 direction = target - transform.position;
-        direction.y = 0;
-        Quaternion rotation = Quaternion.LookRotation(direction);
-        // calculate xDegrees and yDegrees and set xRotation and yRotation
-        xDegrees = rotation.eulerAngles.x;
-        yDegrees = rotation.eulerAngles.y;
-        xRotation.localRotation = Quaternion.Euler(xDegrees, 0, 0);
-        yRotation.localRotation = Quaternion.Euler(0, yDegrees, 0);
+        Vector2 direction = target - new Vector2(rotationTransform.position.x, rotationTransform.position.y);
+        LookDirection(direction);
     }
 }

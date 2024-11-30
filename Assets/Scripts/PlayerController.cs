@@ -4,7 +4,6 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement & Look")]
     [SerializeField] private Movement movement;
-    [SerializeField] private float sensitivity;
 
     [Header("Pickup & Throw")]
     [SerializeField] private PickupItem pickupItem;
@@ -43,11 +42,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
-
-        movement.Rotate(mouseY, mouseX);
-
         // Pickup or throw item
         if (Input.GetKeyDown(KeyCode.E)) pickupItem.Pickup();
         if (Input.GetKeyDown(KeyCode.F)) pickupItem.Throw();
@@ -57,9 +51,7 @@ public class PlayerController : MonoBehaviour
     {
         float inputVertical = Input.GetAxis("Vertical");
         float inputHorizontal = Input.GetAxis("Horizontal");
-        bool inputJump = Input.GetKey(KeyCode.Space);
 
         movement.Move(inputHorizontal, inputVertical);
-        if (inputJump) movement.Jump();
     }
 }

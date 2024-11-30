@@ -9,7 +9,7 @@ public class ThrownProjectile : MonoBehaviour
     private bool hasHit = false;
 
     // check when the projectile hits something
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (hasHit || !isEnabled) return;
 

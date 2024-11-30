@@ -22,7 +22,7 @@ public class PickupItem : MonoBehaviour
         if (IsHoldingItem()) return;
 
         // get all the colliders in the radius
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius);
         foreach (var hitCollider in hitColliders)
         {
             // check if the collider has the tag "Health" and pick the first one
@@ -44,7 +44,8 @@ public class PickupItem : MonoBehaviour
                 hitCollider.transform.rotation = handTransform.rotation;
                 hitCollider.transform.SetParent(handTransform);
                 // disable the rigidbody
-                Destroy(hitCollider.GetComponent<Rigidbody>());
+                hitCollider.GetComponent<Rigidbody2D>().isKinematic = true;
+                hitCollider.isTrigger = true;
             }
         }
     }
@@ -61,8 +62,8 @@ public class PickupItem : MonoBehaviour
         GameObject jelly = Instantiate(jellyPrefab, throwTransform.position, throwTransform.rotation);
         // enable the ThrownProjectile script on the item so it can deal damage
         jelly.gameObject.GetComponent<ThrownProjectile>().isEnabled = true;
-        // give the jelly a force forward
-        jelly.GetComponent<Rigidbody>().AddForce(transform.forward * throwForce, ForceMode.Impulse);
+        // give the jelly a force up
+        jelly.GetComponent<Rigidbody2D>().AddForce(transform.up * throwForce, ForceMode2D.Impulse);
     }
 
     private void ThrowItem()
@@ -70,9 +71,10 @@ public class PickupItem : MonoBehaviour
         // set the position and rotation of the item to the throwTransform
         heldItem.position = throwTransform.position;
         heldItem.rotation = throwTransform.rotation;
-        // enable the rigidbody and give it a force forward
-        heldItem.gameObject.AddComponent<Rigidbody>();
-        heldItem.GetComponent<Rigidbody>().AddForce(transform.forward * throwForce, ForceMode.Impulse);
+        // enable the rigidbody and give it a force up
+        heldItem.GetComponent<Rigidbody2D>().isKinematic = false;
+        heldItem.GetComponent<Collider2D>().isTrigger = false;
+        heldItem.GetComponent<Rigidbody2D>().AddForce(transform.up * throwForce, ForceMode2D.Impulse);
         // enable the ThrownProjectile script on the item so it can deal damage
         heldItem.gameObject.GetComponent<ThrownProjectile>().isEnabled = true;
         // remove the parent

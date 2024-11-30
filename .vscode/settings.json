@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "jam-games-ex2.sln"
+    "dotnet.defaultSolution": "ex2.sln"
 }
