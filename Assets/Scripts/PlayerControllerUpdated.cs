@@ -78,7 +78,7 @@ public class PlayerControllerUpdated : MonoBehaviour
         else
         {
             if (Input.GetKeyDown(KeyCode.P)) pickupItem.Pickup();
-            if (Input.GetKeyDown(KeyCode.T)) pickupItem.Throw();
+            if (Input.GetKeyDown(KeyCode.O)) pickupItem.Throw();
         }
         
     }
