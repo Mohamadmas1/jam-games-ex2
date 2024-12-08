@@ -10,7 +10,14 @@ public class PickupItem : MonoBehaviour
     private Transform heldItem = null;
     [SerializeField] private float throwForce = 10f;
     [SerializeField] private Health health;
-    [SerializeField] private GameObject jellyPrefab;
+    [SerializeField] private GameObject diaperPrefab;
+    [SerializeField] private float diaperDuration ;
+    private float diaperTimer = 0;
+
+    void Update()
+    {
+        if (diaperTimer > 0) diaperTimer -= Time.deltaTime;
+    }
 
     public bool IsHoldingItem()
     {
@@ -50,31 +57,30 @@ public class PickupItem : MonoBehaviour
         }
     }
 
-    public void Throw()
+    public void ThrowDiaper()
     {
-        if (!IsHoldingItem()) ThrowJelly();
-        else ThrowItem();
-    }
+        if (diaperTimer > 0) return;
+        diaperTimer = diaperDuration;
 
-    private void ThrowJelly()
-    {
-        // instantiate the jelly prefab
-        GameObject jelly = Instantiate(jellyPrefab, throwTransform.position, throwTransform.rotation);
+        // instantiate the Diaper prefab
+        GameObject Diaper = Instantiate(diaperPrefab, throwTransform.position, throwTransform.rotation);
         // enable the ThrownProjectile script on the item so it can deal damage
-        jelly.gameObject.GetComponent<ThrownProjectile>().isEnabled = true;
-        // give the jelly a force up
-        jelly.GetComponent<Rigidbody2D>().AddForce(transform.up * throwForce, ForceMode2D.Impulse);
+        Diaper.GetComponent<ThrownProjectile>().isEnabled = true;
+        // give the Diaper a force up
+        Diaper.GetComponent<Rigidbody2D>().AddForce(Diaper.transform.up * throwForce, ForceMode2D.Impulse);
     }
 
-    private void ThrowItem()
+    public void ThrowItem()
     {
+        if (!IsHoldingItem()) return;
+
         // set the position and rotation of the item to the throwTransform
         heldItem.position = throwTransform.position;
         heldItem.rotation = throwTransform.rotation;
         // enable the rigidbody and give it a force up
         heldItem.GetComponent<Rigidbody2D>().isKinematic = false;
         heldItem.GetComponent<Collider2D>().isTrigger = false;
-        heldItem.GetComponent<Rigidbody2D>().AddForce(transform.up * throwForce, ForceMode2D.Impulse);
+        heldItem.GetComponent<Rigidbody2D>().AddForce(heldItem.transform.up * throwForce, ForceMode2D.Impulse);
         // enable the ThrownProjectile script on the item so it can deal damage
         heldItem.gameObject.GetComponent<ThrownProjectile>().isEnabled = true;
         // remove the parent

@@ -6,8 +6,7 @@ TagManager:
   tags:
   - Throwable
   - Health
-  - Player1
-  - Player2
+  - Slippery
   layers:
   - Default
   - TransparentFX
