@@ -6,7 +6,7 @@ public class Destroyable : MonoBehaviour
 {
     [SerializeField] private Health health;
     [SerializeField] private GameObject lootPrefab;
-    [SerializeField] private int lootChance = 1;
+    [SerializeField] private int lootChance=5;
 
     void Start()
     {
@@ -17,7 +17,7 @@ public class Destroyable : MonoBehaviour
     {
         if (lootPrefab != null)
         {
-            int random = Random.Range(0, 1);
+            int random = Random.Range(0, 10);
             if (random <= lootChance) Instantiate(lootPrefab, transform.position, Quaternion.identity);
         }
         Destroy(gameObject);
