@@ -73,12 +73,12 @@ public class PlayerControllerUpdated : MonoBehaviour
         if (CompareTag("Player1"))
         {
             if (Input.GetKeyDown(KeyCode.E)) pickupItem.Pickup();
-            if (Input.GetKeyDown(KeyCode.F)) pickupItem.Throw();
+            if (Input.GetKeyDown(KeyCode.F)) pickupItem.ThrowItem();
         }
         else
         {
             if (Input.GetKeyDown(KeyCode.P)) pickupItem.Pickup();
-            if (Input.GetKeyDown(KeyCode.O)) pickupItem.Throw();
+            if (Input.GetKeyDown(KeyCode.O)) pickupItem.ThrowItem();
         }
         
     }
