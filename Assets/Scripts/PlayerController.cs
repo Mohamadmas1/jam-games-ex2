@@ -41,7 +41,8 @@ public class PlayerController : MonoBehaviour
     void OnDeath()
     {
         Debug.Log("Player " + playerInput.playerIndex + " has died");
-        Destroy(gameObject);
+        // Destroy(gameObject);
+        GamaManager.instance.CheckGameOver(playerInput.playerIndex);        
     }
 
     void Update()
