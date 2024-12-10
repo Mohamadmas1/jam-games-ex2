@@ -9,9 +9,12 @@ public class GamaManager : MonoBehaviour
 {
     
     
-    public static GamaManager instance;
+    static public GamaManager instance;
     [SerializeField] private List<Transform> playerSpawnPoints;
     [SerializeField] private List<AnimatorController> playerAnimators;
+    [SerializeField] private GameObject FloorScreen;
+    [SerializeField] private GameObject shlomoWinScreen;
+    [SerializeField] private GameObject tzipiWinScreen;
     
     private void Awake()
     {
@@ -23,6 +26,9 @@ public class GamaManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        FloorScreen.SetActive(true);
+        shlomoWinScreen.SetActive(false);
+        tzipiWinScreen.SetActive(false);
     }
     
     public void SpawnPlayer(PlayerInput playerInput)
@@ -36,14 +42,19 @@ public class GamaManager : MonoBehaviour
     {
         if (looserInd == 2) 
         {
-            FindObjectOfType<EndGameManager>().SetWinner("Shlomo");
-            SceneManager.LoadScene("EndScene"); 
+            FloorScreen.SetActive(false);
+            shlomoWinScreen.SetActive(true);
         }
         else if (looserInd == 1)
         {
-            FindObjectOfType<EndGameManager>().SetWinner("Zippy");
-            SceneManager.LoadScene("EndScene"); 
+            FloorScreen.SetActive(false);
+            tzipiWinScreen.SetActive(true);
         }
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }

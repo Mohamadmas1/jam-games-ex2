@@ -20,6 +20,7 @@ public class Destroyable : MonoBehaviour
             int random = Random.Range(0, 10);
             if (random <= lootChance) Instantiate(lootPrefab, transform.position, Quaternion.identity);
         }
+        Debug.Log("destroyed");
         Destroy(gameObject);
     }
 }

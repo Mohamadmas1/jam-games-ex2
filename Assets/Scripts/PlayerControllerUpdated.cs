@@ -22,6 +22,8 @@ public class PlayerControllerUpdated : MonoBehaviour
 
     private Rigidbody2D rb; 
     public InputAction PlayerMovement;
+
+    private int index;
   
     
     
@@ -37,8 +39,11 @@ public class PlayerControllerUpdated : MonoBehaviour
     
     void OnDeath()
     {
-        Debug.Log("Player died");
-        Destroy(gameObject);
+        Debug.Log("Player " + 1 + " has died");
+        if(CompareTag("Player1")) index=1;
+        else index=2;
+        GamaManager.instance.CheckGameOver(index); 
+        Destroy(gameObject); 
     }
     
     

@@ -38,11 +38,11 @@ public class PlayerController : MonoBehaviour
         health.onDeath += OnDeath;
     }
 
-    void OnDeath()
+    public void OnDeath()
     {
         Debug.Log("Player " + playerInput.playerIndex + " has died");
-        // Destroy(gameObject);
-        GamaManager.instance.CheckGameOver(playerInput.playerIndex);        
+        GamaManager.instance.CheckGameOver(playerInput.playerIndex); 
+        Destroy(gameObject);       
     }
 
     void Update()
