@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
         Vector2 input = context.ReadValue<Vector2>();
         // flip the direction of the player if the player is diapered
         if (diaperTimer > 0) input *= -1;
-        if (input.magnitude < 0.1f) return;
+        if (input.magnitude < 0.1f) return;  // TODO
         movement.LookDirection(input);
 
         // change the player sprite based on the look direction
