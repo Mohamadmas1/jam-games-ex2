@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 1804126695}
   - component: {fileID: 1804126694}
   - component: {fileID: 1804126693}
+  - component: {fileID: 1804126696}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -250,7 +251,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.9622642, g: 0.748932, b: 0.9269762, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -272,7 +273,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1908945257}
+      - m_Target: {fileID: 1908945258}
         m_TargetAssemblyTypeName: StartGameScript, Assembly-CSharp
         m_MethodName: StartGame
         m_Mode: 1
@@ -322,6 +323,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804126691}
   m_CullTransparentMesh: 1
+--- !u!114 &1804126696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804126691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcd2bff824e2b4621a4f0db371520961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1908945252
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +347,7 @@ GameObject:
   - component: {fileID: 1908945255}
   - component: {fileID: 1908945254}
   - component: {fileID: 1908945253}
-  - component: {fileID: 1908945257}
+  - component: {fileID: 1908945258}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -426,7 +439,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1908945257
+--- !u!114 &1908945258
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -435,7 +448,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1908945252}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7be734ec51e49470fa65afe2446dbdab, type: 3}
+  m_Script: {fileID: 11500000, guid: dcd2bff824e2b4621a4f0db371520961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1959599894

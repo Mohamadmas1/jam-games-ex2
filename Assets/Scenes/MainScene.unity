@@ -551,7 +551,7 @@ GameObject:
   - component: {fileID: 128141114}
   - component: {fileID: 128141113}
   m_Layer: 0
-  m_Name: throwable (3)
+  m_Name: Daisa 2
   m_TagString: Throwable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1285,7 +1285,7 @@ GameObject:
   - component: {fileID: 529984190}
   - component: {fileID: 529984189}
   m_Layer: 0
-  m_Name: throwable (1)
+  m_Name: Daisa
   m_TagString: Throwable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4458,7 +4458,7 @@ GameObject:
   - component: {fileID: 2063058267}
   - component: {fileID: 2063058266}
   m_Layer: 0
-  m_Name: throwable (2)
+  m_Name: Daisa 1
   m_TagString: Throwable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4811,7 +4811,7 @@ GameObject:
   - component: {fileID: 2125324214}
   - component: {fileID: 2125324213}
   m_Layer: 0
-  m_Name: throwable (4)
+  m_Name: Daisa 3
   m_TagString: Throwable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

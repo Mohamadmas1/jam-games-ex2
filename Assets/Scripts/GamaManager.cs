@@ -50,6 +50,8 @@ public class GamaManager : MonoBehaviour
             FloorScreen.SetActive(false);
             tzipiWinScreen.SetActive(true);
         }
+        // SceneManager.LoadScene("EndGameScene");
+
     }
 
     public void RestartGame()
