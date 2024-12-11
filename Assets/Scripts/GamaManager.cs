@@ -40,17 +40,20 @@ public class GamaManager : MonoBehaviour
     
     public void CheckGameOver(int looserInd)
     {
-        if (looserInd == 2) 
+        if (looserInd == 0) 
         {
             FloorScreen.SetActive(false);
             shlomoWinScreen.SetActive(true);
+            SceneManager.LoadScene("EndScene");
+            
         }
         else if (looserInd == 1)
         {
             FloorScreen.SetActive(false);
             tzipiWinScreen.SetActive(true);
+            SceneManager.LoadScene("EndScene");
         }
-        // SceneManager.LoadScene("EndGameScene");
+        //SceneManager.LoadScene("EndGameScene");
 
     }
 

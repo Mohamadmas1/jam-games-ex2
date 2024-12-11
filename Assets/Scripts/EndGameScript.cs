@@ -25,6 +25,7 @@ public class EndGameScript : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("MainScene"); 
+        Debug.Log("123");
+        SceneManager.LoadScene("MainScene");
     }
 }
