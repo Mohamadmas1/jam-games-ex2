@@ -23,9 +23,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Transform> playerGameSpawnPoints;
     [SerializeField] private List<GameObject> playersText;
     [SerializeField] private List<AnimatorController> playerAnimators;
+    [SerializeField] private List<PlayerLifeUI> playerLives;
     [SerializeField] private GameObject FloorScreen;
     [SerializeField] private GameObject shlomoWinScreen;
     [SerializeField] private GameObject tzipiWinScreen;
+    [SerializeField] private GameObject gameUICanvas;
     
     private List<PlayerController> playerControllers;
     private PlayerInputManager playerInputManager;
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        gameUICanvas.SetActive(false);
         playerInputManager = GetComponent<PlayerInputManager>();
         playerControllers = new List<PlayerController>(NumPlayers);
         Camera.main.orthographicSize = startZoom;
@@ -59,6 +62,7 @@ public class GameManager : MonoBehaviour
         playerControllers[playerIndex].DisableMovement();
         playerControllers[playerIndex].spriteAnimator.runtimeAnimatorController = playerAnimators[playerIndex];
         playersText[playerIndex].SetActive(false);
+        playerLives[playerIndex].health = playerInput.GetComponent<Health>();
         
         if (playerControllers.Count == NumPlayers)
         {
@@ -69,6 +73,7 @@ public class GameManager : MonoBehaviour
 
     private void PrepareGame()
     {
+        gameUICanvas.SetActive(true);
         for (int idx = 0; idx < NumPlayers; idx++)
         {
             playerControllers[idx].EnableMovement();
@@ -84,6 +89,7 @@ public class GameManager : MonoBehaviour
         else if (looserInd == 1) 
             shlomoWinScreen.SetActive(true);
         
+        gameUICanvas.SetActive(false);
         FloorScreen.SetActive(false);
         playerInputManager.enabled = false;
         DestroyPlayers();

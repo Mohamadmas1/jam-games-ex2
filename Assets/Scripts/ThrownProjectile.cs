@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class ThrownProjectile : MonoBehaviour
 {
-    [SerializeField] private float damage = 10f;
+    [SerializeField] private int damage = 1;
     [SerializeField] private GameObject puddlePrefab;
     public bool isEnabled = false;
     private bool hasHit = false;

@@ -37,7 +37,7 @@ public class PickupItem : MonoBehaviour
             {
                 // increase the health of the player
                 Destroy(hitCollider.gameObject);
-                health.IncreaseHealth(10);
+                health.IncreaseHealth(1);
             }
 
             // check if the collider has the tag "Throwable" and only pick up one item
