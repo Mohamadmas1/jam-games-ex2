@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     public void OnDeath()
     {
         Debug.Log("Player " + playerInput.playerIndex + " has died");
-        GamaManager.instance.CheckGameOver(playerInput.playerIndex); 
+        GameManager.instance.CheckGameOver(playerInput.playerIndex); 
         Destroy(gameObject);       
     }
 
@@ -165,5 +165,15 @@ public class PlayerController : MonoBehaviour
 
         // tint the player sprite to brown
         spriteAnimator.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.25f, 0);
+    }
+
+    public void DisableMovement()
+    {
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+    }
+    
+    public void EnableMovement()
+    {
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 }

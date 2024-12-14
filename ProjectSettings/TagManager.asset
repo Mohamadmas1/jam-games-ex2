@@ -7,6 +7,7 @@ TagManager:
   - Throwable
   - Health
   - Slippery
+  - Player1
   layers:
   - Default
   - TransparentFX
@@ -43,4 +44,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 1649640223
+    locked: 0
+  - name: EndScreens
+    uniqueID: 4250459525
     locked: 0

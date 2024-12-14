@@ -42,7 +42,7 @@ public class PlayerControllerUpdated : MonoBehaviour
         Debug.Log("Player " + 1 + " has died");
         if(CompareTag("Player1")) index=1;
         else index=2;
-        GamaManager.instance.CheckGameOver(index); 
+        GameManager.instance.CheckGameOver(index); 
         Destroy(gameObject); 
     }
     
