@@ -694,6 +694,10 @@ PrefabInstance:
       propertyPath: damage
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6635569384620128898, guid: ff3df84eac7059e4187fcb5d9fb25c3b, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7775865567336764976, guid: ff3df84eac7059e4187fcb5d9fb25c3b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.28
@@ -746,7 +750,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: jelly (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7098514457719917674, guid: ff3df84eac7059e4187fcb5d9fb25c3b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

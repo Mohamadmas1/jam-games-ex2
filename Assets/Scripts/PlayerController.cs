@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
             Vector2 direction = rb.velocity.normalized;
             movement.InitSlide(direction.x, direction.y);
             slipTimer = slipDuartion;
-            Destroy(other.gameObject);
+            // Destroy(other.gameObject);  // the slippery surface should remain
         }
     }
 
