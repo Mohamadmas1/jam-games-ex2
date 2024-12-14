@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -108,7 +108,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Sprite_Crumble_Horizontal_4
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 0
+        width: 63
+        height: 42
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11bd66ac7fc5a90429677ccebd676f4d
+      internalID: -1515166037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_Crumble_Horizontal_5
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 5
+        width: 87
+        height: 44
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8538d9cf71f6db743838dc67a20d9d40
+      internalID: 1473530634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_Crumble_Horizontal_6
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 4
+        width: 84
+        height: 47
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22fa0dd851be63c489318c3eae842558
+      internalID: 715482581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sprite_Crumble_Horizontal_7
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 4
+        width: 75
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4fecd18317303c40b27451823dbb88b
+      internalID: 1740100847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +203,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Sprite_Crumble_Horizontal_0: 556907697
+      Sprite_Crumble_Horizontal_1: 1700084863
+      Sprite_Crumble_Horizontal_2: 774967344
+      Sprite_Crumble_Horizontal_3: -465295772
+      Sprite_Crumble_Horizontal_4: -1515166037
+      Sprite_Crumble_Horizontal_5: 1473530634
+      Sprite_Crumble_Horizontal_6: 715482581
+      Sprite_Crumble_Horizontal_7: 1740100847
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

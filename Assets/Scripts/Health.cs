@@ -1,31 +1,21 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private int health = 100;
+    [SerializeField] private float health = 100f;
     // list of functions that will be called when the health reaches 0
     public delegate void OnDeath();
     public OnDeath onDeath;
 
-    private int startLife;
 
-    private void Start()
+    public void IncreaseHealth(float amount)
     {
-        startLife = health;
+        health += amount;
     }
 
-    public void IncreaseHealth(int amount)
-    {
-        if (health + amount > startLife)
-            health = startLife;
-        else 
-            health += amount;
-    }
-
-    public void DecreaseHealth(int amount)
+    public void DecreaseHealth(float amount)
     {
         health -= amount;
         if (health <= 0)
@@ -38,10 +28,5 @@ public class Health : MonoBehaviour
     {
         // call all the functions in the list
         onDeath?.Invoke();
-    }
-    
-    public int GetHealth()
-    {
-        return health;
     }
 }

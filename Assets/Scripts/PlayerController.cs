@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     public void OnDeath()
     {
         Debug.Log("Player " + playerInput.playerIndex + " has died");
-        GameManager.instance.CheckGameOver(playerInput.playerIndex); 
+        GamaManager.instance.CheckGameOver(playerInput.playerIndex); 
         Destroy(gameObject);       
     }
 
@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
         Vector2 input = context.ReadValue<Vector2>();
         // flip the direction of the player if the player is diapered
         if (diaperTimer > 0) input *= -1;
-        if (input.magnitude < 0.1f) return;  // TODO
+        if (input.magnitude < 0.1f) return;
         movement.LookDirection(input);
 
         // change the player sprite based on the look direction
@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
             Vector2 direction = rb.velocity.normalized;
             movement.InitSlide(direction.x, direction.y);
             slipTimer = slipDuartion;
-            // Destroy(other.gameObject);  // the slippery surface should remain
+            Destroy(other.gameObject);
         }
     }
 
@@ -165,15 +165,5 @@ public class PlayerController : MonoBehaviour
 
         // tint the player sprite to brown
         spriteAnimator.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.25f, 0);
-    }
-
-    public void DisableMovement()
-    {
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
-    }
-    
-    public void EnableMovement()
-    {
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 }

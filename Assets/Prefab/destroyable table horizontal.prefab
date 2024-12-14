@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: {fileID: 7524673106192624945}
   lootPrefab: {fileID: 7416681541692670744, guid: a5d1ac87d967057428ba3f4d0d3c0c1f, type: 3}
-  lootChance: 3
+  lootChance: 5
 --- !u!114 &7524673106192624945
 MonoBehaviour:
   m_ObjectHideFlags: 0
