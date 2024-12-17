@@ -7,7 +7,9 @@ TagManager:
   - Throwable
   - Health
   - Slippery
-  - Player1
+  - Destructible
+  - Indestructible
+  - Daysa
   layers:
   - Default
   - TransparentFX

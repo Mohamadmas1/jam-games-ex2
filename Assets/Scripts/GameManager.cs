@@ -1,36 +1,38 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    private const int NumPlayers = 2;
-    
     static public GameManager instance;
-    
-    [Tooltip("The zoom level at the start of the game")]
-    [SerializeField] private float startZoom = 1.7f;
-    [Tooltip("The zoom level during the game")]
-    [SerializeField] private float gameZoom = 16f;
-    [Tooltip("The spawn points for the players at the start of the game")]
-    [SerializeField] private List<Transform> playerStartSpawnPoints;
+
     [Tooltip("The spawn points for the players during the game")]
     [SerializeField] private List<Transform> playerGameSpawnPoints;
-    [SerializeField] private List<GameObject> playersText;
-    [SerializeField] private List<AnimatorController> playerAnimators;
+    [SerializeField] private List<GameObject> startScreenWaitingText;
+    [SerializeField] private List<GameObject> startScreenAvatars;
+    [SerializeField] private List<RuntimeAnimatorController> playerAnimators;
+    [SerializeField] private List<AudioSource> playerAudioSources;
+    [SerializeField] private List<AudioClip> shlomoThrowSounds;
+    [SerializeField] private List<AudioClip> tzipiThrowSounds;
+    [SerializeField] private List<AudioClip> shlomoHitSounds;
+    [SerializeField] private List<AudioClip> tzipiHitSounds;
+    [SerializeField] private AudioSource managerAudioSource;
+    [SerializeField] private AudioClip gameBgMusic;
+    [SerializeField] private AudioClip EndGameSound;
     [SerializeField] private List<PlayerLifeUI> playerLives;
-    [SerializeField] private GameObject FloorScreen;
+    [SerializeField] private List<Transform> playerDiaperUIMasks;
     [SerializeField] private GameObject shlomoWinScreen;
     [SerializeField] private GameObject tzipiWinScreen;
-    [SerializeField] private GameObject gameUICanvas;
-    
+
     private List<PlayerController> playerControllers;
-    private PlayerInputManager playerInputManager;
+
+    [SerializeField] private GameObject startUI;
+    [SerializeField] private GameObject gameUI;
+    [SerializeField] private GameObject endUI;
+    [SerializeField] private Button restartButton;
+
     private void Awake()
     {
         if (instance == null)
@@ -41,74 +43,73 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        FloorScreen.SetActive(true);
-        shlomoWinScreen.SetActive(false);
-        tzipiWinScreen.SetActive(false);
     }
 
     private void Start()
     {
-        gameUICanvas.SetActive(false);
-        playerInputManager = GetComponent<PlayerInputManager>();
-        playerControllers = new List<PlayerController>(NumPlayers);
-        Camera.main.orthographicSize = startZoom;
+        playerControllers = new List<PlayerController>(2);
+
+        managerAudioSource.PlayOneShot(gameBgMusic);
+
+        startUI.SetActive(true);
+        gameUI.SetActive(false);
+        endUI.SetActive(false);
     }
 
     public void SpawnPlayer(PlayerInput playerInput)
     {
         int playerIndex = playerInput.playerIndex;
-        playerInput.transform.position = playerStartSpawnPoints[playerIndex].position;
+        playerInput.transform.position = playerGameSpawnPoints[playerIndex].position;
         playerControllers.Add(playerInput.GetComponent<PlayerController>());
-        playerControllers[playerIndex].DisableMovement();
+        playerControllers[playerIndex].inputEnabled = false;
         playerControllers[playerIndex].spriteAnimator.runtimeAnimatorController = playerAnimators[playerIndex];
-        playersText[playerIndex].SetActive(false);
+        playerControllers[playerIndex].audioSource = playerAudioSources[playerIndex];
+        playerControllers[playerIndex].throwSounds = playerIndex == 0 ? shlomoThrowSounds : tzipiThrowSounds;
+        playerControllers[playerIndex].hitSounds = playerIndex == 0 ? shlomoHitSounds : tzipiHitSounds;
+        startScreenWaitingText[playerIndex].SetActive(false);
+        startScreenAvatars[playerIndex].SetActive(true);
         playerLives[playerIndex].health = playerInput.GetComponent<Health>();
-        
-        if (playerControllers.Count == NumPlayers)
+        playerInput.GetComponent<PickupItem>().diaperUIMask = playerDiaperUIMasks[playerIndex];
+
+        if (playerControllers.Count == 2)
         {
-            PrepareGame();
+            StartGame();
         }
-        
     }
 
-    private void PrepareGame()
+    private void StartGame()
     {
-        gameUICanvas.SetActive(true);
-        for (int idx = 0; idx < NumPlayers; idx++)
-        {
-            playerControllers[idx].EnableMovement();
-            playerControllers[idx].transform.position = playerGameSpawnPoints[idx].position;
-        }
-        Camera.main.orthographicSize = gameZoom;
+        playerControllers[0].inputEnabled = true;
+        playerControllers[1].inputEnabled = true;
+
+        startUI.SetActive(false);
+        gameUI.SetActive(true);
     }
 
-    public void CheckGameOver(int looserInd)
+    public void EndGame(int looserIndex)
     {
-        if (looserInd == 0) 
+        managerAudioSource.Stop();
+        managerAudioSource.PlayOneShot(EndGameSound);
+
+        if (looserIndex == 0)
+        {
             tzipiWinScreen.SetActive(true);
-        else if (looserInd == 1) 
-            shlomoWinScreen.SetActive(true);
-        
-        gameUICanvas.SetActive(false);
-        FloorScreen.SetActive(false);
-        playerInputManager.enabled = false;
-        DestroyPlayers();
-
-    }
-    
-    private void DestroyPlayers()
-    {
-        foreach (var player in playerControllers)
-        {
-            if (player != null)
-                Destroy(player.gameObject);
         }
-        playerControllers.Clear();
+        else if (looserIndex == 1)
+        {
+            shlomoWinScreen.SetActive(true);
+        }
+
+        playerControllers[0].inputEnabled = false;
+        playerControllers[1].inputEnabled = false;
+
+        endUI.SetActive(true);
+        restartButton.Select();
+        gameUI.SetActive(false);
     }
 
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
 }

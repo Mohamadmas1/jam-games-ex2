@@ -9,13 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/OpeningScene.unity
     guid: 289a18f92c2694e93b8f4008f0ce9179
   - enabled: 1
-    path: Assets/Scenes/UpdatedMainScene.unity
-    guid: 55be1ae49297d4b35a98c81de1f96d74
-  - enabled: 1
-    path: Assets/Scenes/MainScene.unity
-    guid: a414ba620573615489ff926a661bc53d
-  - enabled: 1
-    path: Assets/Scenes/EndScene.unity
-    guid: a7c02180fa07f45c88c51e53fbb1075d
+    path: Assets/Scenes/mayachanges.unity
+    guid: efed67541fb5d924dae91f4e791e495c
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a75d9be5143181e4ba572f65fbfba9f6, type: 2}

@@ -6,7 +6,8 @@ public class Destroyable : MonoBehaviour
 {
     [SerializeField] private Health health;
     [SerializeField] private GameObject lootPrefab;
-    [SerializeField] private int lootChance=5;
+    [SerializeField] private int lootChance = 50;
+    public bool shouldDestroy = false;
 
     void Start()
     {
@@ -17,10 +18,16 @@ public class Destroyable : MonoBehaviour
     {
         if (lootPrefab != null)
         {
-            int random = Random.Range(0, 10);
+            int random = Random.Range(0, 100);
             if (random <= lootChance) Instantiate(lootPrefab, transform.position, Quaternion.identity);
         }
-        Debug.Log("destroyed");
-        Destroy(gameObject);
+        var animator = GetComponent<Animator>();
+        if (animator != null) animator.SetTrigger("Destroy");
+        else Destroy(gameObject);
+    }
+
+    public void Update()
+    {
+        if (shouldDestroy) Destroy(gameObject);
     }
 }

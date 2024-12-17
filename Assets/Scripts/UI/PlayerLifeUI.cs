@@ -14,27 +14,34 @@ public class PlayerLifeUI : MonoBehaviour
     private void Start()
     {
         currentHealth = hearts.Count;
+        for (int i = 0; i < hearts.Count; i++)
+        {
+            hearts[i].SetActive(true);
+        }
     }
 
     void Update()
     {
         if (health == null) return;
-        
-        if (health.GetHealth() != currentHealth) UpdateHearts();
-    }
 
-    private void UpdateHearts()
-    {
-        var newHealth = health.GetHealth();
-        currentHealth = health.GetHealth();
-        if (newHealth > currentHealth)
+        if (health.health != currentHealth)
         {
-            hearts[currentHealth].SetActive(true);
+            if (health.health < currentHealth)
+            {
+                for (int i = currentHealth - 1; i >= health.health; i--)
+                {
+                    hearts[i].SetActive(false);
+                }
+            }
+            else
+            {
+                for (int i = currentHealth; i < health.health; i++)
+                {
+                    hearts[i].SetActive(true);
+                }
+            }
+
+            currentHealth = health.health;
         }
-        else
-        {
-            hearts[currentHealth].SetActive(false);
-        }
-        currentHealth = newHealth;
     }
 }

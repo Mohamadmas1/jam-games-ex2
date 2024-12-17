@@ -1,24 +1,41 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float health = 100f;
+    [SerializeField] private int _health = 100;
+    public int health
+    {
+        get => _health;
+        private set => _health = value;
+    }
     // list of functions that will be called when the health reaches 0
     public delegate void OnDeath();
     public OnDeath onDeath;
 
+    // onHit
+    public delegate void OnHit();
+    public OnHit onHit;
 
-    public void IncreaseHealth(float amount)
+    private int initialHealth;
+
+    private void Start()
     {
-        health += amount;
+        initialHealth = _health;
     }
 
-    public void DecreaseHealth(float amount)
+    public void IncreaseHealth(int amount)
     {
-        health -= amount;
-        if (health <= 0)
+        _health = Mathf.Min(_health + amount, initialHealth);
+    }
+
+    public void DecreaseHealth(int amount)
+    {
+        _health -= amount;
+        onHit?.Invoke();
+        if (_health <= 0)
         {
             Die();
         }

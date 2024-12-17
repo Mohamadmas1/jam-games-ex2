@@ -24,25 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Pickup",
-                    "type": "Button",
-                    "id": "46434c0f-699d-42ad-a736-7ac999cd7850",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Throw",
-                    "type": "Button",
-                    "id": "717039c5-fd05-44d4-b933-8a9f8b7d458c",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Diaper",
+                    "name": "Interact",
                     "type": "Button",
                     "id": "5fb70995-8164-46df-9183-86be2d491358",
                     "expectedControlType": "",
@@ -109,34 +91,12 @@
                 },
                 {
                     "name": "",
-                    "id": "13da665f-e96b-4d6b-b24b-e04db103ea92",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pickup",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cb8b4c8e-0520-4742-a7c1-022e0077c3d3",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Throw",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "e042a093-f79a-45f3-9263-da0bb4bb174d",
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Diaper",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

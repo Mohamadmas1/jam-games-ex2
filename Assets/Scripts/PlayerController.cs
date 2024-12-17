@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
@@ -20,12 +21,23 @@ public class PlayerController : MonoBehaviour
     [Header("Health")]
     [SerializeField] private Health health;
 
-    [Header("Player Sprite Animation")]
-    public Animator spriteAnimator;
+    [HideInInspector] public Animator spriteAnimator;
+
+    [Header("Sounds")]
+    [HideInInspector] public AudioSource audioSource;
+    [SerializeField] private AudioClip walkSound;
+    [SerializeField] private AudioClip diaperSound;
+    [HideInInspector] public List<AudioClip> throwSounds;
+    [HideInInspector] public List<AudioClip> hitSounds;
 
     [Header("Diaper")]
     [SerializeField] private float diaperDuration;
     private float diaperTimer;
+    public bool inputEnabled = true;
+
+    [Header("Daysa")]
+    [SerializeField] private string daysaTag;
+    [SerializeField] private int daysaDamage;
 
     void Start()
     {
@@ -36,13 +48,19 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
 
         health.onDeath += OnDeath;
+        health.onHit += OnHit;
     }
 
     public void OnDeath()
     {
         Debug.Log("Player " + playerInput.playerIndex + " has died");
-        GamaManager.instance.CheckGameOver(playerInput.playerIndex); 
-        Destroy(gameObject);       
+        GameManager.instance.EndGame(playerInput.playerIndex);
+        // Destroy(gameObject);
+    }
+
+    public void OnHit()
+    {
+        audioSource.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Count)]);
     }
 
     void Update()
@@ -70,15 +88,23 @@ public class PlayerController : MonoBehaviour
         if (rb.velocity.magnitude > 0.1f)
         {
             spriteAnimator.SetFloat("isWalking", 1);
+            if (audioSource.clip == null)
+            {
+                audioSource.clip = walkSound;
+                audioSource.Play();
+            }
         }
         else
         {
             spriteAnimator.SetFloat("isWalking", 0);
+            audioSource.clip = null;
         }
     }
 
     public void GetMoveInput(CallbackContext context)
     {
+        if (!inputEnabled) return;
+
         Vector2 input = context.ReadValue<Vector2>();
         // flip the direction of the player if the player is diapered
         if (diaperTimer > 0) input *= -1;
@@ -91,6 +117,8 @@ public class PlayerController : MonoBehaviour
 
     public void GetLookInput(CallbackContext context)
     {
+        if (!inputEnabled) return;
+
         Vector2 input = context.ReadValue<Vector2>();
         // flip the direction of the player if the player is diapered
         if (diaperTimer > 0) input *= -1;
@@ -123,33 +151,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void GetPickupInput(CallbackContext context)
+    public void GetInteractInput(CallbackContext context)
     {
-        if (context.started) pickupItem.Pickup();
-    }
+        if (!context.started || !inputEnabled) return;
 
-    public void GetThrowInput(CallbackContext context)
-    {
-        if (context.started)
+        PerformedAction action = pickupItem.Action();
+        if (action == PerformedAction.Diaper || action == PerformedAction.Throw)
         {
             spriteAnimator.SetTrigger("throw");
-            pickupItem.ThrowItem();
+            audioSource.PlayOneShot(throwSounds[Random.Range(0, throwSounds.Count)]);
         }
     }
 
-    public void GetThrowDiaperInput(CallbackContext context)
-    {
-        if (context.started)
-        {
-            spriteAnimator.SetTrigger("throw");
-            pickupItem.ThrowDiaper();
-        }
-    }
-
-    // check if the player is on a slippery surface
+    // check if the player is on a slippery surface/Daysa
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(slipperyTag))
+        // take damage
+        if (other.CompareTag(daysaTag))
+        {
+            health.DecreaseHealth(daysaDamage);
+        }
+        // slip
+        if (other.CompareTag(slipperyTag) || other.CompareTag(daysaTag))
         {
             // get the velocity direction and slide in that direction
             Vector2 direction = rb.velocity.normalized;
@@ -162,6 +185,7 @@ public class PlayerController : MonoBehaviour
     public void DiaperHit()
     {
         diaperTimer = diaperDuration;
+        audioSource.PlayOneShot(diaperSound);
 
         // tint the player sprite to brown
         spriteAnimator.gameObject.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.25f, 0);
